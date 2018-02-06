@@ -19,7 +19,7 @@ class ConvexHullSolver:
             self.points = None
             self.gui_display = display
 
-        def _init_(self):
+        def _init_(self):                                       #node struct
             self.pnt
             self.cc
             self.c
@@ -66,6 +66,10 @@ class ConvexHullSolver:
                 if pnt.x > left_most.x:
                     left_most = pnt
             return left_most
+
+        def convex(l, r, top, btm):
+            return 1;
+
 
         def compute_hull( self, unsorted_points ):
             assert( type(unsorted_points) == list and type(unsorted_points[0]) == QPointF )
