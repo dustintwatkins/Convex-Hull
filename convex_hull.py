@@ -14,29 +14,58 @@ import math
 
 
 class ConvexHullSolver:
+
         def __init__( self, display ):
             self.points = None
             self.gui_display = display
 
+        def _init_(self):
+            self.pnt
+            self.cc
+            self.c
+                                                                #Start with a list of points
         def convex_hull():
             pts = [points]
-            Sorted = pts
+            Sorted = pts                                        #sort the points
 
-            recurse(sorted);
+            recurse(sorted);                                    #recurse through array to find each pnt
 
         def recurse(sorted):
             size = len(sorted)
             if size == 1:
                 return convex(sorted)
             else:
-                half = math.floor(size / 2)
-                left = recurse(sorted[0:half])
-                right = recurse(sorted[half + 1 : size - 1])
-                return combine_hulls(l,r)
+                half = math.floor(size / 2)                     #continue halving the array until size of 1
+                left = recurse(sorted[0:half])                  #first half
+                right = recurse(sorted[half + 1 : size - 1])    #second half
+                return combine_hulls(left,right)
 
-        def combine_hulls(left, right):
-            return 1;
+        def combine_hulls(left, right):                         #combine left and right hulls by finding
+            upper_tangent = findUpper(left, right)              #upper tangent of left and right hulls and
+            btm_tangent = findLower(left, right)                #lower tangent of left and right hulls
+            return convex(left, right, upper_tangent, btm_tangent)  #use node struct to create the convex hull
 
+        def findUpper(left, right):                             #find the upper tangent
+            lhs = findRight(left)                               #right most point in left hull
+            rhs = findLeft(right)                               #left most point in right hull
+            slope = (lhs.y - rhs.y) / (lhs.x - rhs.x)           #compute slope
+            tempSlope = NULL;                                   #compare slopes
+
+        #Find the right most x-coordinate in the left hull
+        def findRight(left):
+            right_most = left[0]
+            for pnt in left:
+                if pnt.x > right_most.x:
+                    right_most = pnt
+            return right_most
+
+        #Find the left most x-coordinate in the right hull
+        def findLeft(right):
+            left_most = right[0]
+            for pnt in right:
+                if pnt.x > left_most.x:
+                    left_most = pnt
+            return left_most
 
         def compute_hull( self, unsorted_points ):
             assert( type(unsorted_points) == list and type(unsorted_points[0]) == QPointF )
