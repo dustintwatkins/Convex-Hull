@@ -12,23 +12,19 @@ else:
 import time
 import math
 
+class Node:
+    def __init__
+
 
 class ConvexHullSolver:
 
         def __init__( self, display ):
             self.points = None
             self.gui_display = display
-
-        def _init_(self):                                       #node struct
-            self.pnt
-            self.cc
-            self.c
                                                                 #Start with a list of points
-        def convex_hull():
-            pts = [points]
-            Sorted = pts                                        #sort the points
-
-            recurse(sorted);                                    #recurse through array to find each pnt
+        def convex_hull(unsorted_points):
+            sorted_points = sorted(unsorted_points, key = lambda p: p.x())
+            recurse(sorted_points);                             #recurse through array to find each pnt
 
         def recurse(sorted):
             size = len(sorted)
