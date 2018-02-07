@@ -17,9 +17,6 @@ class Node:
     c
     cc
 
-
-
-
 class ConvexHullSolver:
 
         def __init__( self, display ):
@@ -28,7 +25,7 @@ class ConvexHullSolver:
                                                                 #Start with a list of points
         def convex_hull(unsorted_points):
             sorted_points = sorted(unsorted_points, key = lambda p: p.x())
-            recurse(sorted_points);                             #recurse through array to find each pnt
+            recurse(sorted_points)                                #recurse through array to find each pnt
 
         def recurse(sorted_points):
             size = len(sorted_points)
@@ -41,8 +38,8 @@ class ConvexHullSolver:
                 return combine_hulls(left,right)
 
         def create_node(sorted_points):
-            this.node = new Node()
-            node.pt = pt
+            node = Node()
+            node.point = sorted_points[0]
             node.c = node
             node.cc = node
 
@@ -51,11 +48,12 @@ class ConvexHullSolver:
             btm_tangent = findLower(left, right)                #lower tangent of left and right hulls
             return convex(left, right, upper_tangent, btm_tangent)  #use node struct to create the convex hull
 
+        #should return left and right point of the line that makes top tangent
         def findUpper(left, right):                             #find the upper tangent
             lhs = findRight(left)                               #right most point in left hull
             rhs = findLeft(right)                               #left most point in right hull
             slope = (lhs.y - rhs.y) / (lhs.x - rhs.x)           #compute slope
-            tempSlope = NULL;                                   #compare slopes
+            tempSlope = NULL                                    #compare slopes
 
         #Find the right most x-coordinate in the left hull
         def findRight(left):
