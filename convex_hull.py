@@ -13,9 +13,9 @@ import time
 import math
 
 class Node:
-    point
-    c
-    cc
+    point = NULL
+    c = NULL
+    cc = NULL
 
 class ConvexHullSolver:
 
@@ -75,7 +75,7 @@ class ConvexHullSolver:
             ltop = l.node
             while(l.node.pt != top.lpt):
                 ltop = ltop.c
-
+		
 
 
 
