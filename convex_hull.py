@@ -13,7 +13,11 @@ import time
 import math
 
 class Node:
-    def __init__
+    point
+    c
+    cc
+
+
 
 
 class ConvexHullSolver:
@@ -26,15 +30,21 @@ class ConvexHullSolver:
             sorted_points = sorted(unsorted_points, key = lambda p: p.x())
             recurse(sorted_points);                             #recurse through array to find each pnt
 
-        def recurse(sorted):
-            size = len(sorted)
+        def recurse(sorted_points):
+            size = len(sorted_points)
             if size == 1:
-                return convex(sorted)
+                return create_node(sorted_points)
             else:
                 half = math.floor(size / 2)                     #continue halving the array until size of 1
-                left = recurse(sorted[0:half])                  #first half
-                right = recurse(sorted[half + 1 : size - 1])    #second half
+                left = recurse(sorted_points[0:half])                  #first half
+                right = recurse(sorted_points[half + 1 : size - 1])    #second half
                 return combine_hulls(left,right)
+
+        def create_node(sorted_points):
+            this.node = new Node()
+            node.pt = pt
+            node.c = node
+            node.cc = node
 
         def combine_hulls(left, right):                         #combine left and right hulls by finding
             upper_tangent = findUpper(left, right)              #upper tangent of left and right hulls and
@@ -63,8 +73,12 @@ class ConvexHullSolver:
                     left_most = pnt
             return left_most
 
-        def convex(l, r, top, btm):
-            return 1;
+        def create_convex(l, r, top, btm):
+            ltop = l.node
+            while(l.node.pt != top.lpt):
+                ltop = ltop.c
+
+
 
 
         def compute_hull( self, unsorted_points ):
