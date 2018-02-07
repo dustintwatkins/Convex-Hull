@@ -13,9 +13,10 @@ import time
 import math
 
 class Node:
-    point = NULL
-    c = NULL
-    cc = NULL
+    def __init__(self):
+        self.point = NULL
+        self.c = NULL
+        self.cc = NULL
 
 class ConvexHullSolver:
 
@@ -24,7 +25,6 @@ class ConvexHullSolver:
             self.gui_display = display
                                                                 #Start with a list of points
         def convex_hull(unsorted_points):
-            sorted_points = sorted(unsorted_points, key = lambda p: p.x())
             recurse(sorted_points)                                #recurse through array to find each pnt
 
         def recurse(sorted_points):
@@ -75,7 +75,7 @@ class ConvexHullSolver:
             ltop = l.node
             while(l.node.pt != top.lpt):
                 ltop = ltop.c
-		
+
 
 
 
@@ -87,6 +87,8 @@ class ConvexHullSolver:
 
             t1 = time.time()
             # TODO: SORT THE POINTS BY INCREASING X-VALUE
+            sorted_points = sorted(unsorted_points, key = lambda p: p.x())
+
             t2 = time.time()
             print('Time Elapsed (Sorting): {:3.3f} sec'.format(t2-t1))
 
@@ -96,7 +98,7 @@ class ConvexHullSolver:
 
             t4 = time.time()
 
-            USE_DUMMY = True
+            USE_DUMMY = False
             if USE_DUMMY:
                 # this is a dummy polygon of the first 3 unsorted points
                 polygon = [QLineF(unsorted_points[i],unsorted_points[(i+1)%3]) for i in range(3)]
