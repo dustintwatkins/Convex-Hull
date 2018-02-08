@@ -50,6 +50,7 @@ def create_hull(sorted_points):
 
         #O(n*log(n))
 def combine_hulls(left, right):
+        print("combine_hulls")
                                                                 #combine left and right hulls by finding
         findUpper(left, right)                                  #upper tangent of left and right hulls and
         findLower(left, right)
@@ -58,6 +59,7 @@ def combine_hulls(left, right):
 
         #should return left and right point of the line that makes top tangent
 def findUpper(left, right):
+        print("findUpper")
                                                                 #find the upper tangent
         lhs = left.right_most                                   #right most point in left hull
         rhs = right.left_most                                   #left most point in right hull
@@ -83,9 +85,11 @@ def findUpper(left, right):
 
         lhs.c = rhs
         rhs.cc = lhs
+        print("exiting upper")
 
 
 def findLower(left, right):
+    print("findLower")
     lhs = left.right_most                                   #right most point in left hull
     rhs = right.left_most                                   #left most point in right hull
 
@@ -111,15 +115,18 @@ def findLower(left, right):
 
     lhs.cc = rhs
     rhs.c = lhs
+    print("leaving lower")
 
         #O(n)
 def compute_slope(lhs, rhs):
     return (lhs.point.y() - rhs.point.y() / lhs.point.x() - rhs.point.x())
 
 def create_convex(l, r):
+    print("entering create_convex")
     hull = Hull()
     hull.left_most = l
     hull.right_most = r
+    print("return create_convex")
     return hull
 
 
@@ -142,16 +149,18 @@ class ConvexHullSolver:
 
             #O(nlog(n))
             sorted_points = sorted(unsorted_points, key = lambda p: p.x())
-            print('size of list = $d', len(sorted_points))
+            print('size of list = ', len(sorted_points))
 
             t2 = time.time()
             print('Time Elapsed (Sorting): {:3.3f} sec'.format(t2-t1))
             t3 = time.time()
             # TODO: COMPUTE THE CONVEX HULL USING DIVIDE AND CONQUER
 
+
             hull = convex_hull(sorted_points)
 
             t4 = time.time()
+            print("done with solving")
             #iterate through the linked list to make a list to draw lines
             first = hull.left_most
             hull_points = []
@@ -163,7 +172,7 @@ class ConvexHullSolver:
                 second = second.c
 
             hull_points.append(first.point)
-            
+
             print("size of list = ", len(hull_points))
 
             USE_DUMMY = False
