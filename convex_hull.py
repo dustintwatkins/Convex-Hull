@@ -72,21 +72,17 @@ def findUpper(left, right):
             temp_slope = compute_slope(lhs, rhs.c)              #compare slopes
             if(temp_slope > slope):
                 rhs = rhs.c
+                right_changed = True
             else:
                 right_changed = False
-                switch = True
-                while(switch):
-                    slope = compute_slope(lhs, rhs)
-                    temp_slope = compute_slope(lhs.cc, rhs)
-                    if(temp_slope < slope):
-                        lhs = lhs.cc
-                    else:
-                        switch = False
-                        temp_slope = compute_slope(lhs, rhs.c)
-                        if(slope > temp_slope):
-                            left_changed = False
-                        else:
-                            rhs = rhs.c
+            slope = compute_slope(lhs, rhs)
+            temp_slope = compute_slope(lhs.cc, rhs)
+            if(temp_slope < slope):
+                left_changed = True
+                lhs = lhs.cc
+            else:
+                left_changed = False
+
         lhs.c = rhs
         print("returning find upper")
         return lhs
