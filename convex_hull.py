@@ -23,111 +23,111 @@ class Node:
         self.c = None
         self.cc = None
 
+def convex_hull(sorted_points):
+    recurse(sorted_points)                                     #recurse through array to find each pnt
+
+        #O(log(n))
+def recurse(sorted_points):
+    size = len(sorted_points)
+        if size == 1:
+            return create_hull(sorted_points)
+        else:
+            half = math.floor(size / 2)                            #continue halving the array until size of 1
+            left = recurse(sorted_points[0:half])                  #first half
+            right = recurse(sorted_points[half + 1 : size - 1])    #second half
+            return combine_hulls(left,right)
+        #O(1)
+def create_hull(sorted_points):
+        hull = Hull()
+        node = Node()
+        node.point = sorted_points[0]
+        node.c = node
+        node.cc = node
+        hull.left_most = node
+        hull.right_most = node
+        return hull
+
+        #O(n*log(n))
+def combine_hulls(left, right):                             #combine left and right hulls by finding
+        upper_tangent = findUpper(left, right)                  #upper tangent of left and right hulls and
+        btm_tangent = findLower(left, right)                    #lower tangent of left and right hulls
+        return convex(left, right, upper_tangent, btm_tangent)  #use node struct to create the convex hull
+
+        #should return left and right point of the line that makes top tangent
+def findUpper(left, right):                                 #find the upper tangent
+        lhs = left.right_most                                   #right most point in left hull
+        rhs = right.left_most                                   #left most point in right hull
+
+        right_changed = True
+        left_changed = True
+
+        while (right_changed or left_changed):
+            slope = compute_slope(lhs, rhs)                     #compute slope
+            temp_slope = compute_slope(lhs, rhs.c)              #compare slopes
+            if(temp_slope > slope):
+                rhs = rhs.c
+            else:
+                right_changed = False
+                switch = True
+                while(switch):
+                    slope = compute_slope(lhs, rhs)
+                    temp_slope = compute_slope(lhs.cc, rhs)
+                    if(temp_slope < slope):
+                        lhs = lhs.cc
+                    else:
+                        switch = False
+                        temp_slope = compute_slope(lhs, rhs.c)
+                        if(slope > temp_slope):
+                            left_changed = False
+                        else:
+                            rhs = rhs.c
+        lhs.c = rhs
+        return lhs
+
+def findLower(left, right):
+    lhs = left.right_most                                   #right most point in left hull
+    rhs = right.left_most                                   #left most point in right hull
+
+    right_changed = True
+    left_changed = True
+
+    while (right_changed or left_changed):
+        slope = compute_slope(lhs, rhs)                     #compute slope
+        temp_slope = compute_slope(lhs, rhs.cc)              #compare slopes
+        if(temp_slope < slope):
+            rhs = rhs.cc
+        else:
+            right_changed = False
+            switch = True
+            while(switch):
+                slope = compute_slope(lhs, rhs)
+                temp_slope = compute_slope(lhs.c, rhs)
+                if(temp_slope > slope):
+                    lhs = lhs.c
+                else:
+                    switch = False
+                    temp_slope = compute_slope(lhs, rhs.cc)
+                    if(slope < temp_slope):
+                        left_changed = False
+                    else:
+                        rhs = rhs.cc
+    lhs.cc = rhs
+    return lhs
+
+        #O(n)
+def compute_slope(lhs, rhs):
+    return (lhs.y() - rhs.y() / lhs.x() - rhs.x())
+
+def create_convex(l, r, top, btm):
+    return 1
+
 class ConvexHullSolver:
 
         def __init__( self, display ):
             self.points = None
             self.gui_display = display
                                                                        #Start with a list of points
-        def convex_hull(self, sorted_points):
-            self.recurse(sorted_points)                                     #recurse through array to find each pnt
 
-        #O(log(n))
-        def recurse(sorted_points):
-            size = len(sorted_points)
-            if size == 1:
-                return self.create_hull(sorted_points)
-            else:
-                half = math.floor(size / 2)                            #continue halving the array until size of 1
-                left = self.recurse(sorted_points[0:half])                  #first half
-                right = self.recurse(sorted_points[half + 1 : size - 1])    #second half
-                return self.combine_hulls(left,right)
-        #O(1)
-        def create_hull(sorted_points):
-            hull = Hull()
-            node = Node()
-            node.point = sorted_points[0]
-            node.c = node
-            node.cc = node
-            hull.left_most = node
-            hull.right_most = node
-            return hull
-
-        #O(n*log(n))
-        def combine_hulls(left, right):                             #combine left and right hulls by finding
-            upper_tangent = findUpper(left, right)                  #upper tangent of left and right hulls and
-            btm_tangent = findLower(left, right)                    #lower tangent of left and right hulls
-            return convex(left, right, upper_tangent, btm_tangent)  #use node struct to create the convex hull
-
-        #should return left and right point of the line that makes top tangent
-        def findUpper(left, right):                                 #find the upper tangent
-            lhs = left.right_most                                   #right most point in left hull
-            rhs = right.left_most                                   #left most point in right hull
-
-            right_changed = True
-            left_changed = True
-
-            while (right_changed or left_changed):
-                slope = compute_slope(lhs, rhs)                     #compute slope
-                temp_slope = compute_slope(lhs, rhs.c)              #compare slopes
-                if(temp_slope > slope):
-                    rhs = rhs.c
-                else:
-                    right_changed = False
-                    switch = True
-                    while(switch):
-                        slope = compute_slope(lhs, rhs)
-                        temp_slope = compute_slope(lhs.cc, rhs)
-                        if(temp_slope < slope):
-                            lhs = lhs.cc
-                        else:
-                            switch = False
-                            temp_slope = compute_slope(lhs, rhs.c)
-                            if(slope > temp_slope):
-                                left_changed = False
-                            else:
-                                rhs = rhs.c
-            lhs.c = rhs
-            return lhs
-
-
-
-        def findLower(left, right):
-            lhs = left.right_most                                   #right most point in left hull
-            rhs = right.left_most                                   #left most point in right hull
-
-            right_changed = True
-            left_changed = True
-
-            while (right_changed or left_changed):
-                slope = compute_slope(lhs, rhs)                     #compute slope
-                temp_slope = compute_slope(lhs, rhs.cc)              #compare slopes
-                if(temp_slope < slope):
-                    rhs = rhs.cc
-                else:
-                    right_changed = False
-                    switch = True
-                    while(switch):
-                        slope = compute_slope(lhs, rhs)
-                        temp_slope = compute_slope(lhs.c, rhs)
-                        if(temp_slope > slope):
-                            lhs = lhs.c
-                        else:
-                            switch = False
-                            temp_slope = compute_slope(lhs, rhs.cc)
-                            if(slope < temp_slope):
-                                left_changed = False
-                            else:
-                                rhs = rhs.cc
-            lhs.cc = rhs
-            return lhs
-
-        #O(n)
-        def compute_slope(lhs, rhs):
-            return (lhs.y() - rhs.y() / lhs.x() - rhs.x())
-
-        def create_convex(l, r, top, btm):
-            return 1
 
         def compute_hull( self, unsorted_points ):
             assert( type(unsorted_points) == list and type(unsorted_points[0]) == QPointF )
