@@ -154,9 +154,18 @@ class ConvexHullSolver:
             t3 = time.time()
             # TODO: COMPUTE THE CONVEX HULL USING DIVIDE AND CONQUER
 
-            convex_hull(sorted_points)
+            hull = convex_hull(sorted_points)
 
             t4 = time.time()
+            #iterate through the linked list to make a list to draw lines
+            first = hull.left_most
+            hull_points = []
+            hull_points.append(first.point)
+            second = first.c
+
+            while(second != first):
+                hull_points.append(second.point)
+                second = second.c
 
             USE_DUMMY = False
             if USE_DUMMY:
@@ -169,6 +178,10 @@ class ConvexHullSolver:
                 self.gui_display.addLines( polygon, (255,0,0) )
             else:
                 # TODO: PASS THE CONVEX HULL LINES BACK TO THE GUI FOR DISPLAY
+
+                polygon = [QLineF(hull_points[i], hull_points[(i+1)%3]) for i in range(3)]
+                assert( type(polygon) == list and type(polygon[0]) == QLineF )
+                self.gui_display.addLines( polygon, (255,0,0) )
                 pass
 
             print('Time Elapsed (Convex Hull): {:3.3f} sec'.format(t4-t3))
