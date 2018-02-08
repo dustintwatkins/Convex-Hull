@@ -163,9 +163,11 @@ class ConvexHullSolver:
             print("done with solving")
             #iterate through the linked list to make a list to draw lines
             first = hull.left_most
+            print("first", first.point)
             hull_points = []
             hull_points.append(first.point)
             second = first.c
+            print("second", second)
 
             while(second != first):
                 hull_points.append(second.point)
