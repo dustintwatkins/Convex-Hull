@@ -99,21 +99,18 @@ def findLower(left, right):
         temp_slope = compute_slope(lhs, rhs.cc)              #compare slopes
         if(temp_slope < slope):
             rhs = rhs.cc
+            right_changed = True
         else:
             right_changed = False
-            switch = True
-            while(switch):
-                slope = compute_slope(lhs, rhs)
-                temp_slope = compute_slope(lhs.c, rhs)
-                if(temp_slope > slope):
-                    lhs = lhs.c
-                else:
-                    switch = False
-                    temp_slope = compute_slope(lhs, rhs.cc)
-                    if(slope < temp_slope):
-                        left_changed = False
-                    else:
-                        rhs = rhs.cc
+
+        slope = compute_slope(lhs, rhs)
+        temp_slope = compute_slope(lhs.c, rhs)
+        if(temp_slope > slope):
+            left_changed = True
+            lhs = lhs.c
+        else:
+            left_changed = False
+
     lhs.cc = rhs
     print("returning find btm")
     return lhs
