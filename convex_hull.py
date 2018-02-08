@@ -49,13 +49,18 @@ def create_hull(sorted_points):
         return hull
 
         #O(n*log(n))
-def combine_hulls(left, right):                             #combine left and right hulls by finding
+def combine_hulls(left, right):
+        print("entered combine hulls");
+                                                                #combine left and right hulls by finding
         upper_tangent = findUpper(left, right)                  #upper tangent of left and right hulls and
-        btm_tangent = findLower(left, right)                    #lower tangent of left and right hulls
+        btm_tangent = findLower(left, right)
+        print("about to enter conver()")                 #lower tangent of left and right hulls
         return convex(left, right, upper_tangent, btm_tangent)  #use node struct to create the convex hull
 
         #should return left and right point of the line that makes top tangent
-def findUpper(left, right):                                 #find the upper tangent
+def findUpper(left, right):
+        print("findUpper")
+                                                                #find the upper tangent
         lhs = left.right_most                                   #right most point in left hull
         rhs = right.left_most                                   #left most point in right hull
 
@@ -83,6 +88,7 @@ def findUpper(left, right):                                 #find the upper tang
                         else:
                             rhs = rhs.c
         lhs.c = rhs
+        print("returning find upper")
         return lhs
 
 def findLower(left, right):
@@ -113,6 +119,7 @@ def findLower(left, right):
                     else:
                         rhs = rhs.cc
     lhs.cc = rhs
+    print("returning find btm")
     return lhs
 
         #O(n)
