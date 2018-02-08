@@ -140,6 +140,7 @@ class ConvexHullSolver:
 
             #O(nlog(n))
             sorted_points = sorted(unsorted_points, key = lambda p: p.x())
+            print('size of list = $d', len(sorted_points))
 
             t2 = time.time()
             print('Time Elapsed (Sorting): {:3.3f} sec'.format(t2-t1))
