@@ -75,7 +75,7 @@ class ConvexHullSolver:
                 else:
                     right_changed = False
                     switch = True
-                    while(switch)
+                    while(switch):
                         slope = compute_slope(lhs, rhs)
                         temp_slope = compute_slope(lhs.cc, rhs)
                         if(temp_slope < slope):
@@ -93,6 +93,7 @@ class ConvexHullSolver:
 
 
         def findLower(left, right):
+            return 1
 
 
 
