@@ -26,7 +26,7 @@ class Node:
 def convex_hull(sorted_points):
     return recurse(sorted_points)                                     #recurse through array to find each pnt
 
-        #O(log(n))
+#O(log(n))
 def recurse(sorted_points):
     size = len(sorted_points)
     if size == 1:
@@ -128,6 +128,9 @@ def create_convex(l, r):
     hull = Hull()
     hull.left_most = l
     hull.right_most = r
+    print("point", hull.left_most.point)
+    print("point.c", hull.left_most.c.point)
+    print("point.cc", hull.left_most.cc.point)
     print("return create_convex")
     return hull
 
@@ -172,7 +175,7 @@ class ConvexHullSolver:
             print("second", second.point)
             print("second.c", second.c.point)
             print("second.cc", second.cc.point)
-            
+
             i = 0
             while(second != first or i != 5):
                 print("second", second.point)
