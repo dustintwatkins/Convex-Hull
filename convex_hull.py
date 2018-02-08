@@ -52,10 +52,10 @@ def create_hull(sorted_points):
 def combine_hulls(left, right):
         print("entered combine hulls");
                                                                 #combine left and right hulls by finding
-        upper_tangent = findUpper(left, right)                  #upper tangent of left and right hulls and
-        btm_tangent = findLower(left, right)
-        print("about to enter conver()")                 #lower tangent of left and right hulls
-        return convex(left, right, upper_tangent, btm_tangent)  #use node struct to create the convex hull
+        findUpper(left, right)                  #upper tangent of left and right hulls and
+        findLower(left, right)
+                                                                #lower tangent of left and right hulls
+        return convex(left.left_most, right.right_most)                              #use node struct to create the convex hull
 
         #should return left and right point of the line that makes top tangent
 def findUpper(left, right):
@@ -84,8 +84,9 @@ def findUpper(left, right):
                 left_changed = False
 
         lhs.c = rhs
+        rhs.cc = lhs
         print("returning find upper")
-        return lhs
+
 
 def findLower(left, right):
     lhs = left.right_most                                   #right most point in left hull
@@ -112,15 +113,20 @@ def findLower(left, right):
             left_changed = False
 
     lhs.cc = rhs
+    rhs.c = lhs
     print("returning find btm")
-    return lhs
 
         #O(n)
 def compute_slope(lhs, rhs):
     return (lhs.point.y() - rhs.point.y() / lhs.point.x() - rhs.point.x())
 
-def create_convex(l, r, top, btm):
-    return 1
+def create_convex(l, r):
+    print("entering convex")
+    hull = Hull()
+    hull.left_most = l
+    hull.right_most = r
+    return hull
+
 
 class ConvexHullSolver:
 
