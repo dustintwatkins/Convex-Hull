@@ -146,7 +146,8 @@ class ConvexHullSolver:
             print('Time Elapsed (Sorting): {:3.3f} sec'.format(t2-t1))
             t3 = time.time()
             # TODO: COMPUTE THE CONVEX HULL USING DIVIDE AND CONQUER
-            convex_hull(sorted_points)
+            solver = ConvexHullSolver()
+            solver.convex_hull(sorted_points)
 
             t4 = time.time()
 
