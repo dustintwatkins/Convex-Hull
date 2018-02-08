@@ -12,72 +12,98 @@ else:
 import time
 import math
 
+class Hull:
+    def __init__(self):
+        self.left_most = None
+        self.right_most = None
+
 class Node:
     def __init__(self):
-        self.point = NULL
-        self.c = NULL
-        self.cc = NULL
+        self.point = None
+        self.c = None
+        self.cc = None
 
 class ConvexHullSolver:
 
         def __init__( self, display ):
             self.points = None
             self.gui_display = display
-                                                                #Start with a list of points
-        def convex_hull(unsorted_points):
-            recurse(sorted_points)                                #recurse through array to find each pnt
+                                                                       #Start with a list of points
+        def convex_hull(sorted_points):
+            recurse(sorted_points)                                     #recurse through array to find each pnt
 
+        #O(log(n))
         def recurse(sorted_points):
             size = len(sorted_points)
             if size == 1:
-                return create_node(sorted_points)
+                return create_hull(sorted_points)
             else:
-                half = math.floor(size / 2)                     #continue halving the array until size of 1
+                half = math.floor(size / 2)                            #continue halving the array until size of 1
                 left = recurse(sorted_points[0:half])                  #first half
                 right = recurse(sorted_points[half + 1 : size - 1])    #second half
                 return combine_hulls(left,right)
-
-        def create_node(sorted_points):
+        #O(1)
+        def create_hull(sorted_points):
+            hull = Hull()
             node = Node()
             node.point = sorted_points[0]
             node.c = node
             node.cc = node
+            hull.left_most = node
+            hull.right_most = node
+            return hull
 
-        def combine_hulls(left, right):                         #combine left and right hulls by finding
-            upper_tangent = findUpper(left, right)              #upper tangent of left and right hulls and
-            btm_tangent = findLower(left, right)                #lower tangent of left and right hulls
+        #O(n*log(n))
+        def combine_hulls(left, right):                             #combine left and right hulls by finding
+            upper_tangent = findUpper(left, right)                  #upper tangent of left and right hulls and
+            btm_tangent = findLower(left, right)                    #lower tangent of left and right hulls
             return convex(left, right, upper_tangent, btm_tangent)  #use node struct to create the convex hull
 
         #should return left and right point of the line that makes top tangent
-        def findUpper(left, right):                             #find the upper tangent
-            lhs = findRight(left)                               #right most point in left hull
-            rhs = findLeft(right)                               #left most point in right hull
-            slope = (lhs.y - rhs.y) / (lhs.x - rhs.x)           #compute slope
-            tempSlope = NULL                                    #compare slopes
+        def findUpper(left, right):                                 #find the upper tangent
+            lhs = left.right_most                                   #right most point in left hull
+            rhs = right.left_most                                   #left most point in right hull
 
-        #Find the right most x-coordinate in the left hull
-        def findRight(left):
-            right_most = left[0]
-            for pnt in left:
-                if pnt.x > right_most.x:
-                    right_most = pnt
-            return right_most
+            right_changed = True
+            left_changed = True
 
-        #Find the left most x-coordinate in the right hull
-        def findLeft(right):
-            left_most = right[0]
-            for pnt in right:
-                if pnt.x > left_most.x:
-                    left_most = pnt
-            return left_most
+            while (right_changed or left_changed):
+                slope = compute_slope(lhs, rhs)                     #compute slope
+                temp_slope = compute_slope(lhs, rhs.c)              #compare slopes
+                if(temp_slope > slope):
+                    rhs = rhs.c
+                else:
+                    right_changed = False
+                    switch = True
+                    while(switch)
+                        slope = compute_slope(lhs, rhs)
+                        temp_slope = compute_slope(lhs.cc, rhs)
+                        if(temp_slope < slope):
+                            lhs = lhs.cc
+                        else:
+                            switch = False
+                            temp_slope = compute_slope(lhs, rhs.c)
+                            if(slope > temp_slope):
+                                left_changed = False
+                            else:
+                                rhs = rhs.c
+                    lhs.c = rhs
+                    return lhs
+
+
+
+        def findLower(left, right):
+
+
+
+
+
+        #O(n)
+        def compute_slope(lhs, rhs):
+            return (lhs.y() - rhs.y() / lhs.x() - rhs.x())
 
         def create_convex(l, r, top, btm):
-            ltop = l.node
-            while(l.node.pt != top.lpt):
-                ltop = ltop.c
-
-
-
+            return 1
 
         def compute_hull( self, unsorted_points ):
             assert( type(unsorted_points) == list and type(unsorted_points[0]) == QPointF )
@@ -87,10 +113,13 @@ class ConvexHullSolver:
 
             t1 = time.time()
             # TODO: SORT THE POINTS BY INCREASING X-VALUE
+
+            #O(nlog(n))
             sorted_points = sorted(unsorted_points, key = lambda p: p.x())
 
             t2 = time.time()
             print('Time Elapsed (Sorting): {:3.3f} sec'.format(t2-t1))
+            convex_hull(sorted_points)
 
             t3 = time.time()
             # TODO: COMPUTE THE CONVEX HULL USING DIVIDE AND CONQUER
