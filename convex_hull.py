@@ -50,16 +50,14 @@ def create_hull(sorted_points):
 
         #O(n*log(n))
 def combine_hulls(left, right):
-        print("entered combine hulls");
                                                                 #combine left and right hulls by finding
-        findUpper(left, right)                  #upper tangent of left and right hulls and
+        findUpper(left, right)                                  #upper tangent of left and right hulls and
         findLower(left, right)
                                                                 #lower tangent of left and right hulls
-        return create_convex(left.left_most, right.right_most)                              #use node struct to create the convex hull
+        return create_convex(left.left_most, right.right_most)  #use node struct to create the convex hull
 
         #should return left and right point of the line that makes top tangent
 def findUpper(left, right):
-        print("findUpper")
                                                                 #find the upper tangent
         lhs = left.right_most                                   #right most point in left hull
         rhs = right.left_most                                   #left most point in right hull
@@ -85,7 +83,6 @@ def findUpper(left, right):
 
         lhs.c = rhs
         rhs.cc = lhs
-        print("returning find upper")
 
 
 def findLower(left, right):
@@ -114,14 +111,12 @@ def findLower(left, right):
 
     lhs.cc = rhs
     rhs.c = lhs
-    print("returning find btm")
 
         #O(n)
 def compute_slope(lhs, rhs):
     return (lhs.point.y() - rhs.point.y() / lhs.point.x() - rhs.point.x())
 
 def create_convex(l, r):
-    print("entering convex")
     hull = Hull()
     hull.left_most = l
     hull.right_most = r
@@ -168,7 +163,7 @@ class ConvexHullSolver:
                 second = second.c
 
             print("size of list = ", len(hull_points))
-            
+
             USE_DUMMY = False
             if USE_DUMMY:
                 # this is a dummy polygon of the first 3 unsorted points
