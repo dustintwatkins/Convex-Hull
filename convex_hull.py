@@ -87,8 +87,8 @@ class ConvexHullSolver:
                                 left_changed = False
                             else:
                                 rhs = rhs.c
-                    lhs.c = rhs
-                    return lhs
+            lhs.c = rhs
+            return lhs
 
 
 
@@ -99,28 +99,28 @@ class ConvexHullSolver:
             right_changed = True
             left_changed = True
 
-                while (right_changed or left_changed):
-                    slope = compute_slope(lhs, rhs)                     #compute slope
-                    temp_slope = compute_slope(lhs, rhs.cc)              #compare slopes
-                    if(temp_slope < slope):
-                        rhs = rhs.cc
-                    else:
-                        right_changed = False
-                        switch = True
-                        while(switch):
-                            slope = compute_slope(lhs, rhs)
-                            temp_slope = compute_slope(lhs.c, rhs)
-                            if(temp_slope > slope):
-                                lhs = lhs.c
+            while (right_changed or left_changed):
+                slope = compute_slope(lhs, rhs)                     #compute slope
+                temp_slope = compute_slope(lhs, rhs.cc)              #compare slopes
+                if(temp_slope < slope):
+                    rhs = rhs.cc
+                else:
+                    right_changed = False
+                    switch = True
+                    while(switch):
+                        slope = compute_slope(lhs, rhs)
+                        temp_slope = compute_slope(lhs.c, rhs)
+                        if(temp_slope > slope):
+                            lhs = lhs.c
+                        else:
+                            switch = False
+                            temp_slope = compute_slope(lhs, rhs.cc)
+                            if(slope < temp_slope):
+                                left_changed = False
                             else:
-                                switch = False
-                                temp_slope = compute_slope(lhs, rhs.cc)
-                                if(slope < temp_slope):
-                                    left_changed = False
-                                else:
-                                    rhs = rhs.cc
-                        lhs.cc = rhs
-                        return lhs
+                                rhs = rhs.cc
+            lhs.cc = rhs
+            return lhs
 
         #O(n)
         def compute_slope(lhs, rhs):
