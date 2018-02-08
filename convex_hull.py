@@ -176,12 +176,12 @@ class ConvexHullSolver:
             print("second.c", second.c.point)
             print("second.cc", second.cc.point)
 
-            i = 0
-            while(second != first or i != 5):
-                print("second", second.point)
-                hull_points.append(second.point)
-                second = second.c
-                i = i + 1
+            #i = 0
+            #while(second != first or i != 5):
+            #    print("second", second.point)
+            #    hull_points.append(second.point)
+            #    second = second.c
+            #    i = i + 1
 
             hull_points.append(first.point)
 
