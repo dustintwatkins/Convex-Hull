@@ -167,6 +167,8 @@ class ConvexHullSolver:
                 hull_points.append(second.point)
                 second = second.c
 
+            print("size of list = ", len(hull_points))
+            
             USE_DUMMY = False
             if USE_DUMMY:
                 # this is a dummy polygon of the first 3 unsorted points
