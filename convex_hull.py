@@ -117,7 +117,7 @@ def findLower(left, right):
 
         #O(n)
 def compute_slope(lhs, rhs):
-    return (lhs.y() - rhs.y() / lhs.x() - rhs.x())
+    return (lhs.point.y() - rhs.point.y() / lhs.point.x() - rhs.point.x())
 
 def create_convex(l, r, top, btm):
     return 1
