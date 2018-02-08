@@ -24,7 +24,7 @@ class Node:
         self.cc = None
 
 def convex_hull(sorted_points):
-    recurse(sorted_points)                                     #recurse through array to find each pnt
+    return recurse(sorted_points)                                     #recurse through array to find each pnt
 
         #O(log(n))
 def recurse(sorted_points):
