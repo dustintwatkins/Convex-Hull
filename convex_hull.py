@@ -55,7 +55,7 @@ def combine_hulls(left, right):
         findUpper(left, right)                  #upper tangent of left and right hulls and
         findLower(left, right)
                                                                 #lower tangent of left and right hulls
-        return convex(left.left_most, right.right_most)                              #use node struct to create the convex hull
+        return create_convex(left.left_most, right.right_most)                              #use node struct to create the convex hull
 
         #should return left and right point of the line that makes top tangent
 def findUpper(left, right):
