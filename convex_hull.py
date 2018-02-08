@@ -51,7 +51,9 @@ def create_hull(sorted_points):
         #O(n*log(n))
 def combine_hulls(left, right):
         print("combine_hulls")
-                                                                #combine left and right hulls by finding
+
+        print("printing hulls...")
+                                                                        #combine left and right hulls by finding
         findUpper(left, right)                                  #upper tangent of left and right hulls and
         findLower(left, right)
                                                                 #lower tangent of left and right hulls
@@ -168,7 +170,9 @@ class ConvexHullSolver:
             hull_points.append(first.point)
             second = first.c
             print("second", second.point)
-
+            print("second.c", second.c.point)
+            print("second.cc", second.cc.point)
+            
             i = 0
             while(second != first or i != 5):
                 print("second", second.point)
