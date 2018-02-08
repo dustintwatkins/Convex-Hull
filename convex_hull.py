@@ -29,19 +29,19 @@ class ConvexHullSolver:
             self.points = None
             self.gui_display = display
                                                                        #Start with a list of points
-        def convex_hull(sorted_points):
-            recurse(sorted_points)                                     #recurse through array to find each pnt
+        def convex_hull(self, sorted_points):
+            self.recurse(sorted_points)                                     #recurse through array to find each pnt
 
         #O(log(n))
         def recurse(sorted_points):
             size = len(sorted_points)
             if size == 1:
-                return create_hull(sorted_points)
+                return self.create_hull(sorted_points)
             else:
                 half = math.floor(size / 2)                            #continue halving the array until size of 1
-                left = recurse(sorted_points[0:half])                  #first half
-                right = recurse(sorted_points[half + 1 : size - 1])    #second half
-                return combine_hulls(left,right)
+                left = self.recurse(sorted_points[0:half])                  #first half
+                right = self.recurse(sorted_points[half + 1 : size - 1])    #second half
+                return self.combine_hulls(left,right)
         #O(1)
         def create_hull(sorted_points):
             hull = Hull()
