@@ -162,6 +162,8 @@ class ConvexHullSolver:
                 hull_points.append(second.point)
                 second = second.c
 
+            hull_points.append(first.point)
+            
             print("size of list = ", len(hull_points))
 
             USE_DUMMY = False
@@ -176,7 +178,7 @@ class ConvexHullSolver:
             else:
                 # TODO: PASS THE CONVEX HULL LINES BACK TO THE GUI FOR DISPLAY
 
-                polygon = [QLineF(hull_points[i], hull_points[(i+1)%3]) for i in range(3)]
+                polygon = [QLineF(hull_points[i], hull_points[(i+1)]) for i in range(len(hull_points) - 1)]
                 assert( type(polygon) == list and type(polygon[0]) == QLineF )
                 self.gui_display.addLines( polygon, (255,0,0) )
                 pass
