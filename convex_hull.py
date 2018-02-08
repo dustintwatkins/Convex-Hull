@@ -174,7 +174,7 @@ class ConvexHullSolver:
                 print("second", second.point)
                 hull_points.append(second.point)
                 second = second.c
-                i++
+                i = i + 1
 
             hull_points.append(first.point)
 
