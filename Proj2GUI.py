@@ -24,7 +24,7 @@ else:
 
 
 # Import in the code with the actual implementation
-from convex_hull import *
+from convex_hull2 import *
 
 
 class PointLineView( QWidget ):
@@ -101,10 +101,10 @@ class Proj2GUI( QMainWindow ):
         self.initUI()
         self.solver = ConvexHullSolver( self.view )
 
-       
+
     def newPoints(self):
 
-        
+
         # TODO - ERROR CHECKING!!!!
         if self.randBySeed.isChecked():
             seed = int(self.randSeed.text())
@@ -173,7 +173,7 @@ class Proj2GUI( QMainWindow ):
             self.view.update()
 
         self.solveButton.setEnabled(True)
- 
+
 
 
     def solveClicked(self):
@@ -224,7 +224,7 @@ class Proj2GUI( QMainWindow ):
         h.addWidget( self.clearButton )
         h.addStretch(1)
         vbox.addLayout(h)
-        
+
         h = QHBoxLayout()
         grp = QButtonGroup(self)
         grp.addButton(self.distribOval)
@@ -268,7 +268,7 @@ class Proj2GUI( QMainWindow ):
 if __name__ == '__main__':
     # This line allows CNTL-C in the terminal to kill the program
     signal.signal(signal.SIGINT, signal.SIG_DFL)
-    
+
     app = QApplication(sys.argv)
     w = Proj2GUI()
     sys.exit(app.exec())
