@@ -34,7 +34,7 @@ def recurse(sorted_points):
     else:
         half = math.floor(size / 2)                            #continue halving the array until size of 1
         left = recurse(sorted_points[0:half])                  #first half
-        right = recurse(sorted_points[half:size])    #second half
+        right = recurse(sorted_points[half:size])              #second half
         return combine_hulls(left,right)
 
 #O(1)
@@ -48,7 +48,7 @@ def create_hull(sorted_points):
         hull.right_most = node
         return hull
 
-        #O(n*log(n))
+#O(n*log(n))
 def combine_hulls(left, right):
         print("combine_hulls")
 
@@ -142,7 +142,6 @@ class ConvexHullSolver:
             self.gui_display = display
                                                                        #Start with a list of points
 
-
         def compute_hull( self, unsorted_points ):
             assert( type(unsorted_points) == list and type(unsorted_points[0]) == QPointF )
 
@@ -176,12 +175,13 @@ class ConvexHullSolver:
             print("second.c", second.c.point)
             print("second.cc", second.cc.point)
 
-            #i = 0
-            #while(second != first or i != 5):
-            #    print("second", second.point)
-            #    hull_points.append(second.point)
-            #    second = second.c
-            #    i = i + 1
+            i = 0
+            while(second != first or i != 5):
+                print("second", second.point)
+                print("second.c", second.c.point)
+                hull_points.append(second.point)
+                second = second.c
+                i = i + 1
 
             hull_points.append(first.point)
 
