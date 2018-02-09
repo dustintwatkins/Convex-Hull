@@ -24,7 +24,7 @@ else:
 
 
 # Import in the code with the actual implementation
-from convex_hull2 import *
+from convex_hull import *
 
 
 class PointLineView( QWidget ):

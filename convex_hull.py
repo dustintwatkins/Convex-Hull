@@ -33,8 +33,16 @@ def recurse(sorted_points):
         return create_hull(sorted_points)
     else:
         half = math.floor(size / 2)                            #continue halving the array until size of 1
-        left = recurse(sorted_points[0:half])                  #first half
-        right = recurse(sorted_points[half:size])              #second half
+        left = recurse(sorted_points[0:half])
+        print("printing left...")
+        print("point = ", left.left_most.point)
+        print("point.c = ", left.left_most.c.point)
+        print("point.cc = ", left.left_most.cc.point)                  #first half
+        right = recurse(sorted_points[half:size])
+        print("printing right...")
+        print("point = ", right.right_most.point)
+        print("point.c = ", right.right_most.c.point)
+        print("point.cc = ", right.right_most.cc.point)            #second half
         return combine_hulls(left,right)
 
 #O(1)
