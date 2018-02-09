@@ -32,7 +32,9 @@ def recurse(sorted_points):
     if size == 1:
         return create_hull(sorted_points)
     else:
-        half = math.floor(size / 2)                            #continue halving the array until size of 1
+        half = math.floor(size / 2)
+        print("floor = ", half)
+        print("size = ", size//2)                                                        #continue halving the array until size of 1
         left = recurse(sorted_points[0:half])
         print("printing left...")
         print("point = ", left.left_most.point)
