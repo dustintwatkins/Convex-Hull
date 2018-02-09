@@ -26,23 +26,16 @@ class Node:
 def convex_hull(sorted_points):
     return recurse(sorted_points)                                     #recurse through array to find each pnt
 
-#Time Complexity: O(log(n))
-#Space Complexity: O(n)
+#O(log(n))
 def recurse(sorted_points):
-    #Space Complexity:O(n)
     size = len(sorted_points)
-
     if size == 1:
-        #Time Complexity: O(1)
-        #Space Complexity: O(1)
         return create_hull(sorted_points)
     else:
-        #Time Complexity: O(1)
         half = math.floor(size / 2)
-        #Time Complexity: O(log(n))
-        #Space Complexity: O(n)
-        left = recurse(sorted_points[0:half]                          #first half
-        right = recurse(sorted_points[half:size])                     #second half
+                                                                    #continue halving the array until size of 1
+        left = recurse(sorted_points[0:half])                                                                    #first half
+        right = recurse(sorted_points[half:size])                   #second half
         return combine_hulls(left,right)
 
 #O(1)
@@ -63,10 +56,10 @@ def combine_hulls(left, right):
         top = findUpper(left, right)                                        #upper tangent of left and right hulls and
         btm = findLower(left, right)
 
-        top[0].c = top[1]
-        top[1].cc = top[0]
-        btm[0].cc = btm[1]
-        btm[1].c = btm[0]
+        #top[0].c = top[1]
+        #top[1].cc = top[0]
+        #btm[0].cc = btm[1]
+        #btm[1].c = btm[0]
                                                                             #lower tangent of left and right hulls
         return create_convex(left, right, top, btm)    #use node struct to create the convex hull
 
@@ -97,11 +90,10 @@ def findUpper(left, right):
                 left_changed = False
 
 
-        #lhs.c = rhs
-        #rhs.cc = lhs
         return [lhs, rhs]
-
-
+        lhs.c = rhs
+        rhs.cc = lhs
+        print("exiting upper")
 
 
 def findLower(left, right):
@@ -129,9 +121,10 @@ def findLower(left, right):
         else:
             left_changed = False
 
-    #lhs.cc = rhs
-    #rhs.c = lhs
     return [lhs, rhs]
+    lhs.cc = rhs
+    rhs.c = lhs
+    print("leaving lower")
 
 #O(n)
 def compute_slope(lhs, rhs):
@@ -177,21 +170,13 @@ class ConvexHullSolver:
             hull = convex_hull(sorted_points)
 
             t4 = time.time()
-            print("done with solving")
             #iterate through the linked list to make a list to draw lines
             first = hull.left_most
-            print("first", first.point)
             hull_points = []
             hull_points.append(first.point)
             second = first.c
-            print("second", second.point)
-            print("second.c", second.c.point)
-            print("second.cc", second.cc.point)
-
 
             while(second.point.x() != first.point.x()):
-                print("second", second.point)
-                print("second.c", second.c.point)
                 hull_points.append(second.point)
                 second = second.c
 
