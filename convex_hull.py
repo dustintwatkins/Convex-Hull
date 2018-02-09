@@ -51,26 +51,16 @@ def create_hull(sorted_points):
 #O(n*log(n))
 def combine_hulls(left, right):
         print("combine_hulls")
-
-        print("printing hulls...")
-
-        first = left.node.point.x()
-        second = left.node.c.x()
-        while(first != second):
-            print("first = ", first)
-            print("second = ", second)
-            second = second.c
-
-                                                                        #combine left and right hulls by finding
-        top = findUpper(left, right)                                  #upper tangent of left and right hulls and
+                                                                            #combine left and right hulls by finding
+        top = findUpper(left, right)                                        #upper tangent of left and right hulls and
         btm = findLower(left, right)
 
         #top[0].c = top[1]
         #top[1].cc = top[0]
         #btm[0].cc = btm[1]
         #btm[1].c = btm[0]
-                                                                #lower tangent of left and right hulls
-        return create_convex(left.left_most, right.right_most, top, btm)  #use node struct to create the convex hull
+                                                                            #lower tangent of left and right hulls
+        return create_convex(left, right, top, btm)    #use node struct to create the convex hull
 
         #should return left and right point of the line that makes top tangent
 def findUpper(left, right):
@@ -135,19 +125,18 @@ def findLower(left, right):
     #rhs.c = lhs
     print("leaving lower")
 
-        #O(n)
+#O(n)
 def compute_slope(lhs, rhs):
     return (lhs.point.y() - rhs.point.y() / lhs.point.x() - rhs.point.x())
 
 def create_convex(l, r, top, btm):
-    print("entering create_convex")
     hull = Hull()
-    hull.left_most = l
-    hull.right_most = r
-    print("point", hull.left_most.point)
-    print("point.c", hull.left_most.c.point)
-    print("point.cc", hull.left_most.cc.point)
-    print("return create_convex")
+    top[0].c = top[1]
+    top[1].cc = top[0]
+    btm[0].cc = btm[1]
+    btm[1].c = btm[0]
+    hull.left_most = l.left_most
+    hull.right_most = r.right_most
     return hull
 
 
