@@ -99,10 +99,11 @@ def findUpper(left, right):
                 left_changed = False
 
 
-        return [lhs, rhs]
         lhs.c = rhs
         rhs.cc = lhs
-        print("exiting upper")
+        return [lhs, rhs]
+
+
 
 
 def findLower(left, right):
@@ -130,10 +131,9 @@ def findLower(left, right):
         else:
             left_changed = False
 
-    return [lhs, rhs]
     lhs.cc = rhs
     rhs.c = lhs
-    print("leaving lower")
+    return [lhs, rhs]
 
 #O(n)
 def compute_slope(lhs, rhs):
