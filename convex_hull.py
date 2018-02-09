@@ -51,7 +51,6 @@ def create_hull(sorted_points):
 
 #O(n*log(n))
 def combine_hulls(left, right):
-        print("combine_hulls")
                                                                             #combine left and right hulls by finding
         top = findUpper(left, right)                                        #upper tangent of left and right hulls and
         btm = findLower(left, right)
@@ -60,12 +59,12 @@ def combine_hulls(left, right):
         #top[1].cc = top[0]
         #btm[0].cc = btm[1]
         #btm[1].c = btm[0]
+
                                                                             #lower tangent of left and right hulls
-        return create_convex(left, right, top, btm)    #use node struct to create the convex hull
+        return create_convex(top, btm)                                   #use node struct to create the convex hull
 
         #should return left and right point of the line that makes top tangent
 def findUpper(left, right):
-        print("findUpper")
                                                                 #find the upper tangent
         lhs = left.right_most                                   #right most point in left hull
         rhs = right.left_most                                   #left most point in right hull
@@ -93,11 +92,10 @@ def findUpper(left, right):
         return [lhs, rhs]
         lhs.c = rhs
         rhs.cc = lhs
-        print("exiting upper")
 
 
 def findLower(left, right):
-    print("findLower")
+
     lhs = left.right_most                                   #right most point in left hull
     rhs = right.left_most                                   #left most point in right hull
 
@@ -122,9 +120,6 @@ def findLower(left, right):
             left_changed = False
 
     return [lhs, rhs]
-    lhs.cc = rhs
-    rhs.c = lhs
-    print("leaving lower")
 
 #O(n)
 def compute_slope(lhs, rhs):
@@ -132,10 +127,6 @@ def compute_slope(lhs, rhs):
 
 def create_convex(l, r, top, btm):
     hull = Hull()
-    top[0].c = top[1]
-    top[1].cc = top[0]
-    btm[0].cc = btm[1]
-    btm[1].c = btm[0]
     hull.left_most = l.left_most
     hull.right_most = r.right_most
     return hull
@@ -159,7 +150,6 @@ class ConvexHullSolver:
 
             #O(nlog(n))
             sorted_points = sorted(unsorted_points, key = lambda p: p.x())
-            print('size of list = ', len(sorted_points))
 
             t2 = time.time()
             print('Time Elapsed (Sorting): {:3.3f} sec'.format(t2-t1))
