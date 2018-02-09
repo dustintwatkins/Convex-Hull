@@ -176,7 +176,7 @@ class ConvexHullSolver:
             print("second.cc", second.cc.point)
 
             i = 0
-            while(second != first or i != 5):
+            while(second != first and i != 5):
                 print("second", second.point)
                 print("second.c", second.c.point)
                 hull_points.append(second.point)
