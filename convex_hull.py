@@ -54,8 +54,13 @@ def combine_hulls(left, right):
 
         print("printing hulls...")
                                                                         #combine left and right hulls by finding
-        findUpper(left, right)                                  #upper tangent of left and right hulls and
-        findLower(left, right)
+        top = findUpper(left, right)                                  #upper tangent of left and right hulls and
+        btm = findLower(left, right)
+
+        top[0].c = top[1]
+        top[1].cc = top[0]
+        btm[0].cc = btm[1]
+        btm[1].c = btm[0]
                                                                 #lower tangent of left and right hulls
         return create_convex(left.left_most, right.right_most)  #use node struct to create the convex hull
 
@@ -85,8 +90,10 @@ def findUpper(left, right):
             else:
                 left_changed = False
 
-        lhs.c = rhs
-        rhs.cc = lhs
+
+        return [lhs, rhs]
+        #lhs.c = rhs
+        #rhs.cc = lhs
         print("exiting upper")
 
 
@@ -115,8 +122,9 @@ def findLower(left, right):
         else:
             left_changed = False
 
-    lhs.cc = rhs
-    rhs.c = lhs
+    return [lhs, rhs]
+    #lhs.cc = rhs
+    #rhs.c = lhs
     print("leaving lower")
 
         #O(n)
