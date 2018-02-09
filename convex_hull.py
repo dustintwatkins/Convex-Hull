@@ -56,7 +56,7 @@ def combine_hulls(left, right):
 
         first = left.node.point.x()
         second = left.node.c.x()
-        while(first != second)
+        while(first != second):
             print("first = ", first)
             print("second = ", second)
             second = second.c
