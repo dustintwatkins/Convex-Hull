@@ -127,8 +127,8 @@ def compute_slope(lhs, rhs):
 
 def create_convex(l, r):
     hull = Hull()
-    hull.left_most = l.left_most
-    hull.right_most = r.right_most
+    hull.left_most = l.point
+    hull.right_most = r.point
     return hull
 
 
