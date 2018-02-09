@@ -26,25 +26,23 @@ class Node:
 def convex_hull(sorted_points):
     return recurse(sorted_points)                                     #recurse through array to find each pnt
 
-#O(log(n))
+#Time Complexity: O(log(n))
+#Space Complexity: O(n)
 def recurse(sorted_points):
+    #Space Complexity:O(n)
     size = len(sorted_points)
+
     if size == 1:
+        #Time Complexity: O(1)
+        #Space Complexity: O(1)
         return create_hull(sorted_points)
     else:
+        #Time Complexity: O(1)
         half = math.floor(size / 2)
-        print("floor = ", half)
-        print("size = ", size//2)                                                        #continue halving the array until size of 1
-        left = recurse(sorted_points[0:half])
-        print("printing left...")
-        print("point = ", left.left_most.point)
-        print("point.c = ", left.left_most.c.point)
-        print("point.cc = ", left.left_most.cc.point)                  #first half
-        right = recurse(sorted_points[half:size])
-        print("printing right...")
-        print("point = ", right.right_most.point)
-        print("point.c = ", right.right_most.c.point)
-        print("point.cc = ", right.right_most.cc.point)            #second half
+        #Time Complexity: O(log(n))
+        #Space Complexity: O(n)
+        left = recurse(sorted_points[0:half]                          #first half
+        right = recurse(sorted_points[half:size])                     #second half
         return combine_hulls(left,right)
 
 #O(1)
@@ -65,10 +63,10 @@ def combine_hulls(left, right):
         top = findUpper(left, right)                                        #upper tangent of left and right hulls and
         btm = findLower(left, right)
 
-        #top[0].c = top[1]
-        #top[1].cc = top[0]
-        #btm[0].cc = btm[1]
-        #btm[1].c = btm[0]
+        top[0].c = top[1]
+        top[1].cc = top[0]
+        btm[0].cc = btm[1]
+        btm[1].c = btm[0]
                                                                             #lower tangent of left and right hulls
         return create_convex(left, right, top, btm)    #use node struct to create the convex hull
 
@@ -99,8 +97,8 @@ def findUpper(left, right):
                 left_changed = False
 
 
-        lhs.c = rhs
-        rhs.cc = lhs
+        #lhs.c = rhs
+        #rhs.cc = lhs
         return [lhs, rhs]
 
 
@@ -131,8 +129,8 @@ def findLower(left, right):
         else:
             left_changed = False
 
-    lhs.cc = rhs
-    rhs.c = lhs
+    #lhs.cc = rhs
+    #rhs.c = lhs
     return [lhs, rhs]
 
 #O(n)
