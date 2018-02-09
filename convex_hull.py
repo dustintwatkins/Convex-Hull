@@ -180,13 +180,13 @@ class ConvexHullSolver:
             print("second.c", second.c.point)
             print("second.cc", second.cc.point)
 
-            i = 0
-            while(second.point.x() != first.point.x() and i != 10):
+    
+            while(second.point.x() != first.point.x()):
                 print("second", second.point)
                 print("second.c", second.c.point)
                 hull_points.append(second.point)
                 second = second.c
-                i = i + 1
+
 
             hull_points.append(first.point)
 
