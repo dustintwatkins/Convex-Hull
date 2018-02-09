@@ -90,8 +90,8 @@ def findUpper(left, right):
 
 
         return [lhs, rhs]
-        #lhs.c = rhs
-        #rhs.cc = lhs
+        lhs.c = rhs
+        rhs.cc = lhs
         print("exiting upper")
 
 
@@ -121,8 +121,8 @@ def findLower(left, right):
             left_changed = False
 
     return [lhs, rhs]
-    #lhs.cc = rhs
-    #rhs.c = lhs
+    lhs.cc = rhs
+    rhs.c = lhs
     print("leaving lower")
 
 #O(n)
@@ -180,7 +180,7 @@ class ConvexHullSolver:
             print("second.c", second.c.point)
             print("second.cc", second.cc.point)
 
-    
+
             while(second.point.x() != first.point.x()):
                 print("second", second.point)
                 print("second.c", second.c.point)
