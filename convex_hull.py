@@ -87,10 +87,11 @@ def findUpper(left, right):
             else:
                 left_changed = False
 
-
-        return [lhs, rhs]
         lhs.c = rhs
         rhs.cc = lhs
+        return [lhs, rhs]
+        #lhs.c = rhs
+        #rhs.cc = lhs
 
 
 def findLower(left, right):
@@ -117,7 +118,8 @@ def findLower(left, right):
             lhs = lhs.c
         else:
             left_changed = False
-
+    lhs.cc = rhs
+    rhs.c = lhs
     return [lhs, rhs]
 
 #O(n)
