@@ -12,7 +12,7 @@ import math
 
 
 def convex_hull(sorted_points):
-    if len(sorted_point) <= 1:
+    if len(sorted_points) <= 1:
         return sorted_points
 
     def cross(o, a, b):
